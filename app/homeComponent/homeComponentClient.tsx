@@ -1,18 +1,22 @@
-"use client"
+"use client";
 import React, { useEffect, useState, useRef } from "react";
 import AboutComponent from "@/components/aboutComponent";
 import ExperienceComponent from "@/components/experienceComponent";
-// import ProjectComponent from "@/components/projectComponent";
+import ProjectComponent from "@/components/projectComponent";
 import Link from "next/link";
 import ContactComponent from "@/components/contactComponent";
 import Image from "next/image";
-
+import { motion } from 'framer-motion';
 const HomeComponentClient = () => {
   const [activeSection, setActiveSection] = useState("");
   const [showContact, setShowContact] = useState(false);
   const section1Ref = useRef<HTMLDivElement | null>(null);
   const section2Ref = useRef<HTMLDivElement | null>(null);
-  // const section3Ref = useRef<HTMLDivElement | null>(null);
+  const section3Ref = useRef<HTMLDivElement | null>(null);
+  const fadeInVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (ref.current) {
@@ -42,14 +46,21 @@ const HomeComponentClient = () => {
     };
   }, []);
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 h-screen lg:overflow-hidden overflow-scroll">
-      <div className="flex flex-col justify-between mt-24 lg:mx-24 mx-10">
-        <div className="">
+    <div className={`grid grid-cols-1 lg:grid-cols-2 h-screen ${showContact ? "": "lg:overflow-hidden overflow-scroll"} content`}>
+      <div className="flex flex-col justify-between mt-16 lg:mx-24 mx-10">
+        <motion.div
+          className="p-6" // Add any additional styling here
+          variants={fadeInVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          transition={{ duration: 0.5 }} // Adjust duration as needed
+        >
           <h1 className="text-5xl text-white">Robert Chung</h1>
           <h2 className="text-xl mt-2 text-white">Full Stack Engineer</h2>
           <p className="text-lg mt-2 text-gray-400">
-            I develop creative web experience using my arsenal of technology and
-            skills
+            I develop creative web experiences using my arsenal of technology
+            and skills.
           </p>
           <ul className="mt-4 list-disc">
             <li
@@ -76,7 +87,7 @@ const HomeComponentClient = () => {
                 Experience
               </button>
             </li>
-            {/* <li
+            <li
               className={
                 activeSection === "projects"
                   ? "font-normal text-white"
@@ -87,7 +98,7 @@ const HomeComponentClient = () => {
               <button onClick={() => scrollToSection(section3Ref)}>
                 Projects
               </button>
-            </li> */}
+            </li>
           </ul>
           {showContact ? (
             <div>
@@ -101,14 +112,14 @@ const HomeComponentClient = () => {
                   Back
                 </button>
               </div>
-              <ContactComponent></ContactComponent>
+              <ContactComponent />
             </div>
           ) : (
             <div className="flex justify-center space-x-4 mb-10">
               <Link
                 href="/Robert Chung Developer.pdf"
                 download
-                className="rounded-lg bg-teal-600 text-teal-300 bg-opacity-25 p-2"
+                className="rounded-lg bg-teal-600 text-teal-300 bg-opacity-25 p-2 hover:bg-teal-700"
                 target="_blank"
               >
                 Download the PDF
@@ -117,13 +128,13 @@ const HomeComponentClient = () => {
                 onClick={() => {
                   setShowContact(!showContact);
                 }}
-                className="rounded-lg bg-teal-600 text-teal-300 bg-opacity-25 p-2"
+                className="rounded-lg bg-teal-600 text-teal-300 bg-opacity-25 p-2 hover:bg-teal-700"
               >
                 Contact Me
               </button>
             </div>
           )}
-        </div>
+        </motion.div>
         <div className="lg:mb-20 bg-gray-200 flex rounded-lg">
           <Link href={"https://github.com/RobertChung15"}>
             <Image
@@ -143,7 +154,7 @@ const HomeComponentClient = () => {
           </Link>
         </div>
       </div>
-      <div className="flex justify-center mt-24 lg:overflow-y-auto">
+      <div className="flex justify-center mt-16 lg:overflow-y-auto">
         <div className="w-full">
           <div id="about" className="section" ref={section1Ref}>
             <AboutComponent />
@@ -151,9 +162,9 @@ const HomeComponentClient = () => {
           <div id="experience" className="section" ref={section2Ref}>
             <ExperienceComponent />
           </div>
-          {/* <div id="projects" className="section"  ref={section3Ref}>
+          <div id="projects" className="section"  ref={section3Ref}>
             <ProjectComponent />
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

@@ -13,9 +13,79 @@
     --foreground: #ededed;
   }
 }
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Text color for contrast */
+}
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(270deg, #2c3e50, #063e75);
+  background-size: 400% 400%;
+  animation: gradientAnimation 60s ease infinite;
+  position: relative; /* For positioning sparkles */
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  animation: sparkle 1.5s infinite;
+  pointer-events: none; /* Prevent interaction */
+}
+
+.sparkle:nth-child(1) {
+  width: 5px;
+  height: 5px;
+  top: 20%;
+  left: 30%;
+  animation-delay: 0s;
+}
+
+.sparkle:nth-child(2) {
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  left: 70%;
+  animation-delay: 0.5s;
+}
+
+.sparkle:nth-child(3) {
+  width: 6px;
+  height: 6px;
+  top: 80%;
+  left: 45%;
+  animation-delay: 1s;
+}
+
+.sparkle:nth-child(4) {
+  width: 4px;
+  height: 4px;
+  top: 30%;
+  left: 80%;
+  animation-delay: 1.5s;
 }
