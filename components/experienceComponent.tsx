@@ -36,7 +36,7 @@ const ExperienceComponent = () => {
 
   return (
     <div className="my-5 mx-16">
-      <h3>Experience</h3>
+      <h3 className="text-lg">Experience</h3>
       {experiences.map((experience, index) => {
         return (
           <div key={index} className="grid grid-cols-4 hover:bg-slate-900 hover:border hover:border-white p-2 rounded-lg">

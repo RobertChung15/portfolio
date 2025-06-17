@@ -24,7 +24,7 @@ const ProjectComponent = () => {
     {
       title: "Portfolio V1",
       background:
-        "This was my first attempt at creating a portfolio website, use a No SQl DB firebase to store blog posts and images",
+        "This was my first attempt at creating a portfolio website, use a No SQL DB firebase to store blog posts and images",
       frameworks: ["Angular", "Firebase"],
       github: "",
       link: "https://roots-of-unity.web.app",
@@ -35,12 +35,12 @@ const ProjectComponent = () => {
 
   return (
     <div className="my-2 mx-16">
-      <h3>Projects</h3>
+      <h3 className="text-lg">Projects</h3>
       <div>
         {projects.map((project, index) => (
           <div
             key={index}
-            className="grid grid-cols-3  p-2 rounded-lg hover:bg-gray-900 hover:border border-white"
+            className="grid grid-cols-3  p-2 rounded-lg hover:bg-gray-700 hover:border border-white"
           >
             <div className="col-span-1 rounded-lg flex items-center justify-center">
               <Image
