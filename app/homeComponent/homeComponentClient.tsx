@@ -12,7 +12,7 @@ const HomeComponentClient = () => {
   const [showContact, setShowContact] = useState(false);
   const section1Ref = useRef<HTMLDivElement | null>(null);
   const section2Ref = useRef<HTMLDivElement | null>(null);
-  const section3Ref = useRef<HTMLDivElement | null>(null);
+  // const section3Ref = useRef<HTMLDivElement | null>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (ref.current) {
@@ -45,8 +45,8 @@ const HomeComponentClient = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen lg:overflow-hidden overflow-scroll">
       <div className="flex flex-col justify-between mt-24 lg:mx-24 mx-10">
         <div className="">
-          <h1 className="text-5xl">Robert Chung</h1>
-          <h2 className="text-xl mt-2">Full Stack Engineer</h2>
+          <h1 className="text-5xl text-white">Robert Chung</h1>
+          <h2 className="text-xl mt-2 text-white">Full Stack Engineer</h2>
           <p className="text-lg mt-2 text-gray-400">
             I develop creative web experience using my arsenal of technology and
             skills
@@ -76,7 +76,7 @@ const HomeComponentClient = () => {
                 Experience
               </button>
             </li>
-            <li
+            {/* <li
               className={
                 activeSection === "projects"
                   ? "font-normal text-white"
@@ -87,7 +87,7 @@ const HomeComponentClient = () => {
               <button onClick={() => scrollToSection(section3Ref)}>
                 Projects
               </button>
-            </li>
+            </li> */}
           </ul>
           {showContact ? (
             <div>

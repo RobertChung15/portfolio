@@ -42,7 +42,7 @@ const ExperienceComponent = () => {
           <div key={index} className="grid grid-cols-4 hover:bg-slate-900 hover:border hover:border-white p-2 rounded-lg">
             <div className="col-span-1 text-gray-500">{experience.date}</div>
             <div className="col-span-3">
-              <h3>
+              <h3 className="text-white">
                 {experience.title} · {experience.company}
               </h3>
               <p className="text-sm text-gray-500">{experience.background}</p>
