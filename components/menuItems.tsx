@@ -18,7 +18,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({
 }) => {
 
   return (
-    <ul className="mt-4 list-none">
+    <ul className="mt-4 list-none mb-4">
       {["about", "experience", "projects"].map((section) => (
         <li
           key={section}
