@@ -10,7 +10,7 @@ const ProjectComponent = () => {
         "Based on the japanese card game karuta it is using nursery rhymes on the cards and the player will have to match the corresponding poem to the poem on the card",
       frameworks: ["Godot", "GDScript"],
       image: "/karuta.png",
-      git: "https://github.com/RobertChung15/karuta"
+      git: "https://github.com/RobertChung15/karuta",
     },
     {
       title: "Portfolio V2",
@@ -19,7 +19,7 @@ const ProjectComponent = () => {
       link: "https://robert-b-chung.vercel.app/",
       frameworks: ["Next JS", "Resend", "Framer-Motion"],
       image: "/home.png",
-      git: "https://github.com/RobertChung15/portfolio"
+      git: "https://github.com/RobertChung15/portfolio",
     },
     {
       title: "Portfolio V1",
@@ -29,7 +29,7 @@ const ProjectComponent = () => {
       github: "",
       link: "https://roots-of-unity.web.app",
       image: "/roots.png",
-      git: "https://github.com/RobertChung15/Roots-Of-Unity"
+      git: "https://github.com/RobertChung15/Roots-Of-Unity",
     },
   ];
 
@@ -76,6 +76,18 @@ const ProjectComponent = () => {
                       ></Image>
                     </Link>
                   </li>
+                  {project.link && (
+                    <li className="flex justify-end items-center mx-2">
+                      <Link href={project.link} target="_blank">
+                        <Image
+                          src="/link.png"
+                          width={20}
+                          height={20}
+                          alt="website link"
+                        ></Image>
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>

@@ -6,7 +6,8 @@ import ProjectComponent from "@/components/projectComponent";
 import Link from "next/link";
 import ContactComponent from "@/components/contactComponent";
 import Image from "next/image";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import MenuItems from "@/components/menuItems";
 const HomeComponentClient = () => {
   const [activeSection, setActiveSection] = useState("");
   const [showContact, setShowContact] = useState(false);
@@ -20,9 +21,10 @@ const HomeComponentClient = () => {
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
+      ref.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
   useEffect(() => {
     const options = {
       root: null, // Use the viewport as the root
@@ -46,7 +48,9 @@ const HomeComponentClient = () => {
     };
   }, []);
   return (
-    <div className={`grid grid-cols-1 lg:grid-cols-2 h-screen ${showContact ? "": "lg:overflow-hidden overflow-scroll"} content`}>
+    <div
+      className={`grid grid-cols-1 lg:grid-cols-2 h-screen pb-4 ${showContact ? "" : "lg:overflow-hidden overflow-scroll"} content`}
+    >
       <div className="flex flex-col justify-between mt-16 lg:mx-24 mx-10">
         <motion.div
           className="p-6" // Add any additional styling here
@@ -62,44 +66,13 @@ const HomeComponentClient = () => {
             I develop creative web experiences using my arsenal of technology
             and skills.
           </p>
-          <ul className="mt-4 list-disc">
-            <li
-              className={
-                activeSection === "about"
-                  ? "font-normal text-white"
-                  : "text-gray-500"
-              }
-            >
-              <span className="h-2 w-2 bg-white rounded-full mr-2"></span>
-              <button onClick={() => scrollToSection(section1Ref)}>
-                About
-              </button>
-            </li>
-            <li
-              className={
-                activeSection === "experience"
-                  ? "font-normal text-white"
-                  : "text-gray-500"
-              }
-            >
-              <span className="h-2 w-2 bg-white rounded-full mr-2"></span>
-              <button onClick={() => scrollToSection(section2Ref)}>
-                Experience
-              </button>
-            </li>
-            <li
-              className={
-                activeSection === "projects"
-                  ? "font-normal text-white"
-                  : "text-gray-500"
-              }
-            >
-              <span className="h-2 w-2 bg-white rounded-full mr-2"></span>
-              <button onClick={() => scrollToSection(section3Ref)}>
-                Projects
-              </button>
-            </li>
-          </ul>
+          <MenuItems
+            activeSection={activeSection}
+            scrollToSection={scrollToSection}
+            section1Ref={section1Ref}
+            section2Ref={section2Ref}
+            section3Ref={section3Ref}
+          />
           {showContact ? (
             <div>
               <div className="flex justify-end">
@@ -122,7 +95,7 @@ const HomeComponentClient = () => {
                 className="rounded-lg bg-teal-600 text-teal-300 bg-opacity-25 p-2 hover:bg-teal-700"
                 target="_blank"
               >
-                Download the PDF
+                My Resume
               </Link>
               <button
                 onClick={() => {
@@ -162,7 +135,7 @@ const HomeComponentClient = () => {
           <div id="experience" className="section" ref={section2Ref}>
             <ExperienceComponent />
           </div>
-          <div id="projects" className="section"  ref={section3Ref}>
+          <div id="projects" className="section" ref={section3Ref}>
             <ProjectComponent />
           </div>
         </div>

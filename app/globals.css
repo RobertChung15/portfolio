@@ -44,7 +44,7 @@ html, body {
 }
 
 body {
-  background: linear-gradient(270deg, #2c3e50, #063e75);
+  background: linear-gradient(270deg, #000000, #0d4277);
   background-size: 400% 400%;
   animation: gradientAnimation 60s ease infinite;
   position: relative; /* For positioning sparkles */
