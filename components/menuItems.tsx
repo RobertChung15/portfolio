@@ -16,10 +16,6 @@ const MenuItems: React.FC<MenuItemsProps> = ({
   section2Ref,
   section3Ref,
 }) => {
-  const listItemVariants = {
-    initial: { width: "8px", height: "8px", backgroundColor: "white" },
-    hover: { width: "20px", height: "4px", backgroundColor: "white", x: 10 },
-  };
 
   return (
     <ul className="mt-4 list-none">
