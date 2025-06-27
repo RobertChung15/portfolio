@@ -8,6 +8,8 @@ import ContactComponent from "@/components/contactComponent";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import MenuItems from "@/components/menuItems";
+import * as THREE from "three";
+
 const HomeComponentClient = () => {
   const [activeSection, setActiveSection] = useState("");
   const [showContact, setShowContact] = useState(false);
@@ -43,14 +45,79 @@ const HomeComponentClient = () => {
     const sections = document.querySelectorAll(".section");
     sections.forEach((section) => observer.observe(section));
 
+    // Three.js stars setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+      canvas: document.querySelector("#stars-bg") as HTMLCanvasElement,
+      alpha: true
+    });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.position.setZ(30);
+    
+    const stars: { mesh: THREE.Mesh; originalPos: THREE.Vector3 }[] = [];
+    const mouse = new THREE.Vector2();
+    const raycaster = new THREE.Raycaster();
+    
+    function addStar() {
+      const geometry = new THREE.SphereGeometry(0.1, 24, 24);
+      const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const star = new THREE.Mesh(geometry, material);
+      const [x, y] = Array(2).fill(null).map(() => THREE.MathUtils.randFloatSpread(200));
+      star.position.set(x, y, 0);
+      const originalPos = star.position.clone();
+      scene.add(star);
+      stars.push({ mesh: star, originalPos });
+    }
+    
+    Array(200).fill(null).forEach(addStar);
+    
+    function onMouseMove(event: MouseEvent) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+    
+    window.addEventListener('mousemove', onMouseMove);
+    
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      const mouseWorldPos = new THREE.Vector2(mouse.x * 50, mouse.y * 50);
+      
+      stars.forEach(({ mesh, originalPos }) => {
+        mesh.material.opacity = 0.5 + 0.5 * Math.sin(Date.now() * 0.001 + mesh.position.x * 0.01);
+        mesh.material.transparent = true;
+        
+        const starPos2D = new THREE.Vector2(mesh.position.x, mesh.position.y);
+        const distance = starPos2D.distanceTo(mouseWorldPos);
+        if (distance < 30) {
+          const direction = new THREE.Vector2().subVectors(starPos2D, mouseWorldPos).normalize();
+          const targetPos = originalPos.clone().add(new THREE.Vector3(direction.x * 5, direction.y * 5, 0));
+          mesh.position.lerp(targetPos, 0.1);
+        } else {
+          mesh.position.lerp(originalPos, 0.05);
+        }
+      });
+      
+      renderer.render(scene, camera);
+    }
+    
+    animate();
+
     return () => {
       sections.forEach((section) => observer.unobserve(section));
+      renderer.dispose();
     };
   }, []);
   return (
-    <div
-      className={`grid grid-cols-1 lg:grid-cols-2 h-screen pb-4 ${showContact ? "" : "lg:overflow-hidden overflow-scroll"} content`}
-    >
+    <div className="relative">
+      <canvas id="stars-bg" className="fixed top-0 left-0 w-full h-full -z-10">
+        
+      </canvas>
+      <div
+        className={`grid grid-cols-1 lg:grid-cols-2 h-screen pb-4 ${showContact ? "" : "lg:overflow-hidden overflow-scroll"} content`}
+      >
       <div className="flex flex-col justify-between mt-16 lg:mx-24 mx-10">
         <motion.div
           className="p-6" // Add any additional styling here
@@ -140,6 +207,7 @@ const HomeComponentClient = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

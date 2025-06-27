@@ -17,7 +17,7 @@ const ProjectComponent = () => {
       background:
         "This is the website you are currently viewing, it's using Next js and Resend to send emails through the contact form",
       link: "https://robert-b-chung.vercel.app/",
-      frameworks: ["Next JS", "Resend", "Framer-Motion"],
+      frameworks: ["Next JS", "Resend", "Framer-Motion", "Three.js"],
       image: "/home.png",
       git: "https://github.com/RobertChung15/portfolio",
     },
