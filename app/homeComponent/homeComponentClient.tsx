@@ -1,5 +1,8 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store/store";
+import { setActiveSection, toggleContact } from "../store/slices/uiSlice";
 import AboutComponent from "@/components/aboutComponent";
 import ExperienceComponent from "@/components/experienceComponent";
 import ProjectComponent from "@/components/projectComponent";
@@ -11,8 +14,8 @@ import MenuItems from "@/components/menuItems";
 import * as THREE from "three";
 
 const HomeComponentClient = () => {
-  const [activeSection, setActiveSection] = useState("");
-  const [showContact, setShowContact] = useState(false);
+  const dispatch = useDispatch();
+  const { activeSection, showContact } = useSelector((state: RootState) => state.ui);
   const section1Ref = useRef<HTMLDivElement | null>(null);
   const section2Ref = useRef<HTMLDivElement | null>(null);
   const section3Ref = useRef<HTMLDivElement | null>(null);
@@ -37,7 +40,7 @@ const HomeComponentClient = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+          dispatch(setActiveSection(entry.target.id));
         }
       });
     }, options);
@@ -174,7 +177,7 @@ const HomeComponentClient = () => {
                 <div className="flex justify-end">
                   <button
                     onClick={() => {
-                      setShowContact(!showContact);
+                      dispatch(toggleContact());
                     }}
                     className="rounded-lg bg-teal-600 text-teal-300 bg-opacity-25 p-2"
                   >
@@ -195,7 +198,7 @@ const HomeComponentClient = () => {
                 </Link>
                 <button
                   onClick={() => {
-                    setShowContact(!showContact);
+                    dispatch(toggleContact());
                   }}
                   className="rounded-lg bg-teal-600 text-teal-300 bg-opacity-25 p-2 hover:bg-teal-700"
                 >
